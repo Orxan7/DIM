@@ -1,32 +1,46 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quiz</string>
+    <string name="note1">You pick</string>
+    <string name="note2">right answers from</string>
+    <string name="note3">Your rating is</string>
+</resources>
+private AbsoluteLayout Abs;
+public void onCreate(Bundle savedInstanceState) {
+    try{
+      Abs=new AbsoluteLayout(this);
+      setContentView(Abs);
+    }
+    catch(Exception e){
+      Toast.makeText(this, e+"", Toast.LENGTH_LONG).show();
+    }
+}
+private Button Question;
+private Button[] Answers=new Button[4];
+private double width;
+private double height;
+private static final int VARIANTS=4;
+private AbsoluteLayout.LayoutParams[] params=new AbsoluteLayout.LayoutParams[VARIANTS+1];
+Display display = getWindowManager().getDefaultDisplay(); 
+width=display.getWidth();
+height=display.getHeight();
+Question= new Button(this);
+params[0]=new AbsoluteLayout.LayoutParams(
+      (int)width,(int)height/4,0,0
+);
+Question.setLayoutParams(params[0]);
+Abs.addView(Question);
+for (int i=1;i<VARIANTS+1;i++){
+              int k=i%2;
+              int m;
+              if (i<3) m=1;
+              else{
+                  m=2;
+              }
+              Answers[i-1]= new Button(this);
+              params[i]=new AbsoluteLayout.LayoutParams(
+                    (int)width/2,(int)height/4,(int)(k*width/2),(int)(m*height/4)
+              );
+              Answers[i-1].setLayoutParams(params[i]);
+              Abs.addView(Answers[i-1]);
+ }
